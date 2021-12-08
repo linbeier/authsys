@@ -16,49 +16,66 @@ authority set is implement by letters, 'r' for read, 'w' for write, 't' for tran
 Once you have created your module and you are ready to integrate it into your app then you can follow the readme that is generated in the scaffolding of the app.
 
 ## USAGE
-
+first
+```
 make install
-
-# make sure they are installed correctly
+```
+make sure they are installed correctly
+```
 appd/appcli
-
-# init appd
+```
+init appd
+```
 appd init testnode --chain-id testchain
-
-# config client
+```
+config client
+```
 appcli config chain-id testchain
 appcli config output json
 appcli config indent true
 appcli config trust-node true
-
-# We'll use the "test" keyring backend which save keys unencrypted in the configuration directory of your project. NEVER use in production
+```
+We'll use the "test" keyring backend which save keys unencrypted in the configuration directory of your project. NEVER use in production
+```
 appcli config keyring-backend test
+```
 
-# create users
+create users
+```
 appcli keys add alice
 appcli keys add bob
-
-# add both accounts and coins to genesis file
+```
+add both accounts and coins to genesis file
+```
 appd add-genesis-account $(appcli keys show alice -a) 100000token,1000000000stake
 appd add-genesis-account $(appcli keys show bob -a) 100000token,1000000000stake
+```
 
-# The "nscli config" command saves configuration for the "nscli" command but not for "nsd" so we have to declare the keyring-backend with a flag here
+The "nscli config" command saves configuration for the "nscli" command but not for "nsd" so we have to declare the keyring-backend with a flag here
+```
 appd gentx --name alice --keyring-backend test
-
-# After you have generated a genesis transaction, you will have to input the genTx into the genesis file, so that your nameservice chain is aware of the validators. 
+```
+After you have generated a genesis transaction, you will have to input the genTx into the genesis file, so that your nameservice chain is aware of the validators. 
+```
 appd collect-gentxs
-
-# make sure your genesis file is correct
+```
+make sure your genesis file is correct
+```
 appd validate-genesis
+```
 
-# start your chain
+start your chain
+```
 appd start
+```
 
-# First, check whether accounts have correct funds
+ First, check whether accounts have correct funds
+ ```
 appcli query account $(appcli keys show alice -a)
 appcli query account $(appcli keys show bob -a)
+```
 
-# declare your file authority first
+declare your file authority first
+```
 appcli tx fileauthservice setfile [filename] [filehash] [authority] --from [account]
-
-#
+```
